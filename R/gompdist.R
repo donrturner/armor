@@ -21,6 +21,7 @@
 NULL
 #> NULL
 
+# Gompertz density function
 #' @rdname gomp
 #' @export
 dgomp = function(x, eta, b = 1){
@@ -36,6 +37,7 @@ dgomp = function(x, eta, b = 1){
   return(b * eta * exp(eta + b * x - eta * exp(b * x)))
 }
 
+# Gompertz distribution function
 #' @rdname gomp
 #' @export
 pgomp = function(q, eta, b = 1){
@@ -51,6 +53,7 @@ pgomp = function(q, eta, b = 1){
   return(1 - exp(-eta * (exp(b * q) - 1)))
 }
 
+# Gompertz quantile function
 #' @rdname gomp
 #' @export
 qgomp = function(p, eta, b = 1){
@@ -66,6 +69,7 @@ qgomp = function(p, eta, b = 1){
   return((1 / b) * log(1 - (log(1 - p) / eta)))
 }
 
+# Generate random values from Gompertz distribution
 #' @rdname gomp
 #' @export
 rgomp = function(n, eta, b = 1){
