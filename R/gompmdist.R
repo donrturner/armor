@@ -15,7 +15,7 @@
 #' @examples
 #' x = seq(0.5, 5, by = 0.1)
 #' dgompm(x, 1, 1, 1)
-#' p <- 0:10 * 1 / 10
+#' p <- seq(0, .99, by = 0.1)
 #' pgompm(qgompm(p, .5, .6, .7), .5, .6, .7)
 #' rgompm(10, 1, 2, 3)
 #' @name gompm
@@ -54,8 +54,8 @@ pgompm = function(q, alpha, beta, lambda){
   if(any(lambda <= 0)){
     stop("Please enter a positive value for lambda")
   }
-  if(any(q <= 0)){
-    stop("All q values must be > 0")
+  if(any(q < 0)){
+    stop("All q values must be nonnegative")
   }
   return(1 - exp(-lambda * q - (alpha / beta) * (exp(beta * q) - 1)))
 }
@@ -73,11 +73,11 @@ qgompm = function(p, alpha, beta, lambda){
   if(any(lambda <= 0)){
     stop("Please enter a positive value for lambda")
   }
-  if(any(p < 0) | any(p > 1)){
+  if(any(p < 0) | any(p >= 1)){
     stop("Probabilities must be between 0 and 1")
   }
   # The Lambert W function is required in the formula of the quantile function for a closed-form expression
-  return(alpha / (beta * lambda) - (1 / lambda) * log(1 - p) - (1 / beta) * lambertW0(alpha * exp(alpha / lambda) * (1 - p)^(-beta / lambda) / lambda))
+  return(alpha / (beta * lambda) - (1 / lambda) * log(1 - p) - (1 / beta) * lamW::lambertW0(alpha * exp(alpha / lambda) * (1 - p)^(-beta / lambda) / lambda))
 }
 
 # Generate random values from the Gompertz-Makeham distribution
@@ -95,7 +95,7 @@ rgompm = function(n, alpha, beta, lambda){
   }
   u = runif(n)
   # The Lambert W function is required in the formula of the quantile function for a closed-form expression
-  return(alpha / (beta * lambda) - (1 / lambda) * log(1 - u) - (1 / beta) * lambertW0(alpha * exp(alpha / lambda) * (1 - u)^(-beta / lambda) / lambda))
+  return(alpha / (beta * lambda) - (1 / lambda) * log(1 - u) - (1 / beta) * lamW::lambertW0(alpha * exp(alpha / lambda) * (1 - u)^(-beta / lambda) / lambda))
 }
 
 

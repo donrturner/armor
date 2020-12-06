@@ -34,9 +34,9 @@ Density, distribution, and quantile functions along with random number
 generation for the Gompertz-Makeham distribution.
 }
 \examples{
-x = seq(0, 5, by = 0.1)
+x = seq(0.5, 5, by = 0.1)
 dgompm(x, 1, 1, 1)
-p <- 0:10 * 1 / 10
+p <- seq(0, .99, by = 0.1)
 pgompm(qgompm(p, .5, .6, .7), .5, .6, .7)
 rgompm(10, 1, 2, 3)
 }
