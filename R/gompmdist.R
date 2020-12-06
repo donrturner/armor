@@ -13,7 +13,7 @@
 #' function, \code{qgompm} gives the quantile function, and \code{rgompm} generates random values
 #'
 #' @examples
-#' x = seq(0, 5, by = 0.1)
+#' x = seq(0.5, 5, by = 0.1)
 #' dgompm(x, 1, 1, 1)
 #' p <- 0:10 * 1 / 10
 #' pgompm(qgompm(p, .5, .6, .7), .5, .6, .7)
