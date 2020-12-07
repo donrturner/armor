@@ -1,3 +1,24 @@
+#' Fit Data to the Gompertz Distribution
+#'
+#' @description Fit mortality data to the Gompertz distribution using
+#' nonlinear least squares. The algorithm used here is the Levenberg-Marquardt
+#' algorithm. See \url{https://doi.org/10.1103/PhysRevE.83.036701} for more info.
+#'
+#' @param x vector of ages
+#' @param y vector of number of deaths at age x
+#' @param parstart vector of starting values for parameters \code{eta} and \code{b} respectively
+#' @param eps stopping criterion
+#' @param lambda damping parameter
+#' @param lamup multiplied with lambda to decrease step size if the previous step is not accepted
+#' @param lamdown lambda is divided by this to increase step size if the previous step is accepted
+#'
+#' @return List containing the vector of estimates for \code{eta} and \code{b} and the MSE at convergence.
+#' @export
+#'
+#' @examples
+#' x = seq(0, 5, by = 0.2)
+#' y = abs(dgomp(x, eta = 0.1, b = 1) + rnorm(length(x), mean = 0, sd = 0.01))
+#' gomp_fit(x, y)
 gomp_fit <- function(x, y, parstart = NULL, eps = 0.0001, lambda = 1, lamup = 1.1, lamdown = 1.5){
 
   # Compatibility checks
