@@ -2,6 +2,6 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 gomp_fit_c <- function(x, y, parstart, eps = 0.0001, lambda = 1, lamup = 1.1, lamdown = 1.5) {
-    .Call('_armor_gomp_fit_c', PACKAGE = 'armor', x, y, parstart, eps, lambda, lamup, lamdown)
+    .Call(`_armor_gomp_fit_c`, x, y, parstart, eps, lambda, lamup, lamdown)
 }
 
