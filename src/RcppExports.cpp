@@ -7,8 +7,8 @@
 using namespace Rcpp;
 
 // gomp_fit_c
-Rcpp::List gomp_fit_c(const arma::colvec& x, const arma::colvec& y, const arma::colvec& parstart, double eps, double lambda, double lamup, double lamdown);
-RcppExport SEXP _armor_gomp_fit_c(SEXP xSEXP, SEXP ySEXP, SEXP parstartSEXP, SEXP epsSEXP, SEXP lambdaSEXP, SEXP lamupSEXP, SEXP lamdownSEXP) {
+Rcpp::List gomp_fit_c(const arma::colvec& x, const arma::colvec& y, const arma::colvec& parstart, double eps, double lambda, double lamup, double lamdown, int maxIter);
+RcppExport SEXP _armor_gomp_fit_c(SEXP xSEXP, SEXP ySEXP, SEXP parstartSEXP, SEXP epsSEXP, SEXP lambdaSEXP, SEXP lamupSEXP, SEXP lamdownSEXP, SEXP maxIterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,13 +19,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< double >::type lamup(lamupSEXP);
     Rcpp::traits::input_parameter< double >::type lamdown(lamdownSEXP);
-    rcpp_result_gen = Rcpp::wrap(gomp_fit_c(x, y, parstart, eps, lambda, lamup, lamdown));
+    Rcpp::traits::input_parameter< int >::type maxIter(maxIterSEXP);
+    rcpp_result_gen = Rcpp::wrap(gomp_fit_c(x, y, parstart, eps, lambda, lamup, lamdown, maxIter));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_armor_gomp_fit_c", (DL_FUNC) &_armor_gomp_fit_c, 7},
+    {"_armor_gomp_fit_c", (DL_FUNC) &_armor_gomp_fit_c, 8},
     {NULL, NULL, 0}
 };
 

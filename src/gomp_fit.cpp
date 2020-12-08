@@ -29,7 +29,7 @@ arma::colvec gompfun(const arma::colvec& x, const arma::colvec& par){
 // lamdown - what lambda is divided by given a successful step
 // [[Rcpp::export]]
 Rcpp::List gomp_fit_c(const arma::colvec& x, const arma::colvec& y, const arma::colvec& parstart,
-                      double eps = 0.0001, double lambda = 1, double lamup = 1.1, double lamdown = 1.5){
+                      double eps = 0.0001, double lambda = 1, double lamup = 1.1, double lamdown = 1.5, int maxIter = 100){
     arma::colvec par = parstart;
     arma::colvec obj(2, arma::fill::zeros);
     arma::colvec res = y - gompfun(x, par);
@@ -46,7 +46,12 @@ Rcpp::List gomp_fit_c(const arma::colvec& x, const arma::colvec& y, const arma::
     arma::colvec dC, newpar, newres;
     double C, Cnew;
 
+    int i = 0;
+
     while(obj(0) - obj(1) > eps){
+        if(i == maxIter){
+            return(".");
+        }
         J = arma::join_rows(df_deta(x, par(0), par(1)), df_db(x, par(0), par(1)));
         JTJ = J.t() * J;
         lamvec.fill(lambda);
@@ -71,7 +76,7 @@ Rcpp::List gomp_fit_c(const arma::colvec& x, const arma::colvec& y, const arma::
         }else{
             lambda *= lamup;
         }
-
+        i++;
     }
     return Rcpp::List::create(Rcpp::Named("par") = par,
                               Rcpp::Named("MSE") = obj(1));

@@ -11,6 +11,7 @@
 #' @param lambda damping parameter
 #' @param lamup multiplied with lambda to decrease step size if the previous step is not accepted
 #' @param lamdown lambda is divided by this to increase step size if the previous step is accepted
+#' @param maxIter the maximum number of times the algorithm will iterate
 #'
 #' @return List containing the vector of estimates for \code{eta} and \code{b} and the MSE at convergence.
 #' @export
@@ -19,7 +20,7 @@
 #' x = seq(0, 5, by = 0.2)
 #' y = abs(dgomp(x, eta = 0.1, b = 1) + rnorm(length(x), mean = 0, sd = 0.01))
 #' gomp_fit(x, y)
-gomp_fit <- function(x, y, parstart = NULL, eps = 0.0001, lambda = 1, lamup = 1.1, lamdown = 1.5){
+gomp_fit <- function(x, y, parstart = NULL, eps = 0.0001, lambda = 1, lamup = 1.1, lamdown = 1.5, maxIter = 100){
 
   # Compatibility checks
   if(any(x < 0)){
@@ -46,7 +47,11 @@ gomp_fit <- function(x, y, parstart = NULL, eps = 0.0001, lambda = 1, lamup = 1.
     stop("lamup/lamdown must be > 1")
   }
 
-  out = gomp_fit_c(x, y, parstart = parstart, eps = eps, lambda = lambda, lamup = lamup, lamdown = lamdown)
+  out = gomp_fit_c(x, y, parstart = parstart, eps = eps, lambda = lambda, lamup = lamup, lamdown = lamdown, maxIter = maxIter)
+
+  if(!is.list(out)){
+    stop("Failed to converge")
+  }
 
   return(out)
 }

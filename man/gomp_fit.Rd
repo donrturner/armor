@@ -11,7 +11,8 @@ gomp_fit(
   eps = 1e-04,
   lambda = 1,
   lamup = 1.1,
-  lamdown = 1.5
+  lamdown = 1.5,
+  maxIter = 100
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ gomp_fit(
 \item{lamup}{multiplied with lambda to decrease step size if the previous step is not accepted}
 
 \item{lamdown}{lambda is divided by this to increase step size if the previous step is accepted}
+
+\item{maxIter}{the maximum number of times the algorithm will iterate}
 }
 \value{
 List containing the vector of estimates for \code{eta} and \code{b} and the MSE at convergence.
