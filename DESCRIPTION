@@ -1,14 +1,14 @@
 Package: armor
 Type: Package
 Title: Analysis Tools for Studying Age-Related Mortality
-Version: 0.2.0
+Version: 1.0.0
 Author: person("Donald", "Turner",
                 email = "mightbedon@tamu.edu",
                 role = c("aut"))
 Maintainer: Donald Turner <mightbedon@tamu.edu>
 Description: Functions for generating data from various distributions used to 
  model age-related mortality (i.e., Gompertz, Gompertz-Makeham)
- and for generating fitted models utilizing these distributions. Nonlinear least
+ and for estimating parameters from the Gompertz distribution. Nonlinear least
  squares is used to create the fitted models.
 License: GPL-3
 Encoding: UTF-8
